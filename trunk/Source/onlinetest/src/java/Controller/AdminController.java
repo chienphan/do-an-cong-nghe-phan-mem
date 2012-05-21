@@ -45,6 +45,7 @@ public class AdminController extends HttpServlet {
         String username = (String) session.getAttribute("username");
         String password = (String) session.getAttribute("password");
         Admin admin = new Admin();
+        
         try {
             //kiểm tra người đang đăng nhập tại đây. 0-> admin
             if(admin.login(username, password) == 0){
