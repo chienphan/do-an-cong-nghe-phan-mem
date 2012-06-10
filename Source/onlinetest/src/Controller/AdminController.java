@@ -2,23 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
 
-import Model.Admin;
-import Model.MyClass;
-import Model.Person;
-import Model.User;
+package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jms.Session;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import Model.Admin;
+import Model.MyClass;
+import Model.Person;
+import Model.User;
 
 /**
  *
@@ -47,7 +48,7 @@ public class AdminController extends HttpServlet {
         Admin admin = new Admin();
         
         try {
-            //kiểm tra người đang đăng nhập tại đây. 0-> admin
+            //kiá»ƒm tra ngÆ°á»�i Ä‘ang Ä‘Äƒng nháº­p táº¡i Ä‘Ã¢y. 0-> admin
             if(admin.login(username, password) == 0){
                 admin.setUsername(username);
                 session.setAttribute("pageInfo", admin);
