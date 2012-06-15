@@ -6,11 +6,12 @@
 
 <%@page import="Model.Admin"%>
 <!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html charset=UTF-8" %>
+
 <html>
 	<head>
 
-		<title>Hệ thống trắc nghiệm trực tuyến</title>
+		<title>H&#7879; th&#7889;ng tr&#7855;c nghi&#7879;m tr&#7921;c tuy&#7871;n</title>
 
 		<!-- Meta Tags -->
 		<meta charset="utf-8">
@@ -24,6 +25,7 @@
 		<link href="css/index.css" rel="stylesheet">
 		<!-- JavaScript -->
 		<script src="scripts/wufoo.js"></script>
+                <script src="scripts/onlinetest.js"></script>
 
 
 		<!--[if lt IE 10]>
@@ -38,66 +40,139 @@
 		<div id="container" class="ltr">
 
 			<h1 id="logo">
-				<a href="" title="Hệ thống trắc nghiệm trực tuyến">Wufoo</a>
+				<a href="" title="H&#7879; th&#7889;ng tr&#7855;c nghi&#7879;m tr&#7921;c tuy&#7871;n">
+                                    H&#7879; th&#7889;ng tr&#7855;c nghi&#7879;m tr&#7921;c tuy&#7871;n
+                                </a>
 			</h1>
 
-			<form id="form4" name="form4" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate action="https://gobom.wufoo.com/forms/r7x2s9/#public">
+			<form id="form4" name="form4" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="get" novalidate action="AdminController">
 				<header id="header" class="info">
-					<h2>Trang quản trị</h2>
-					<div>Xin chào Admin! (logout)</div>
+					<h2>Trang qu&#7843;n tr&#7883;</h2>
+					<div><%= "Xin Chào " + admin.getUsername() %> (<a href="PersonController?comment=logout">&#273;&#259;ng xu&#7845;t</a> | &#273;&#7893;i m&#7853;t kh&#7849;u)</div>
 				</header>
                                 <div id="addFields" class="clearfix">
                                     <div id="shake" >
                                         <div>
-                                            <h2 class="stand"><%= "Chức năng" %></h2>
+                                            <h2 class="stand"><%= "Ch&#7913;c n&#259;ng" %></h2>
                                             <ul id="col1">
                                                 <li id="drag1_text" class="dragfld 0 wide" style="position: relative; ">
-                                                    <a id="mc" class="button" href="AdminController?state=home" ><b></b>
+                                                    <a id="mc" class="button" href="AdminController?state=home&info=none" ><b></b>
                                                         Home
                                                     </a>
                                                 </li>
                                                 
                                                 <li id="drag1_text" class="dragfld 0 wide" style="position: relative; ">
-                                                    <a id="mc" class="button" href="AdminController?state=admin_user" ><b></b>
-                                                        Người sử dụng
+                                                    <a id="mc" class="button" href="AdminController?state=admin_user&info=none" ><b></b>
+                                                        Ng&#432;&#7901;i s&#7917; d&#7909;ng
                                                     </a>
                                                 </li>
 
                                                 <li id="drag1_textarea" class="dragfld 1 bigger" style="position: relative; ">
-                                                    <a id="mc" class="button" href="AdminController?state=admin_class" ><b></b>
-                                                        Lớp học
+                                                    <a id="mc" class="button" href="AdminController?state=admin_class&info=none" ><b></b>
+                                                        L&#7899;p h&#7885;c
                                                     </a>
                                                 </li>
 
                                                 <li id="drag1_radio" class="dragfld 2 bigger" style="position: relative; ">
-                                                    <a id="mc" class="button" href="AdminController?state=admin_test" ><b></b>
-                                                        Bài thi
+                                                    <a id="mc" class="button" href="AdminController?state=admin_test&info=none" ><b></b>
+                                                        B&#224;i thi
                                                     </a>
                                                 </li>
 
                                                 <li id="drag1_section" class="dragfld 3 wide" style="position: relative; ">
-                                                    <a id="mc" class="button" href="AdminController?state=admin_question" ><b></b>	
-                                                        Câu hỏi
+                                                    <a id="mc" class="button" href="AdminController?state=admin_question&info=none" ><b></b>	
+                                                        C&#226;u h&#7887;i
                                                     </a>
                                                 </li>
 
                                                     <li id="drag1_section" class="dragfld 3 wide" style="position: relative; ">
-                                                    <a id="sb" class="button" href="AdminController?state=admin_subjects" ><b></b>	
-                                                        Môn học
+                                                    <a id="sb" class="button" href="AdminController?state=admin_subjects&info=none" ><b></b>	
+                                                        M&#244;n h&#7885;c
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div style="float: right; width: 80%">
+                                            <!-- Form create new Subjects -->
+                                            <% if(session.getAttribute("info").equals("new")){ %>
+                                                    <ul>
+                                                        <li id="foli8" class="notranslate ">
+                                                            <label class="desc" id="title8" for="Field8">
+                                                                T&#234;n m&#244;n h&#7885;c:
+                                                            </label>
+                                                            <div>
+                                                                <input id="Field1" name="subjectsname" type="text" class="field text large" value="" maxlength="255" tabindex="1" onKeyUp="" />
+                                                            </div>
+                                                        </li>
+                                                       
+                                                         <li class="hide">
+                                                                <input type="hidden" id="idstamp" name="state" value="admin_subjects" />
+                                                        </li>
+                                                        <li class="hide">
+                                                                <input type="hidden" id="idstamp" name="info" value="create" />
+                                                        </li>
+                                                        <li class="buttons ">
+                                                            <div>
+                                                                <input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="T&#7841;o m&#7899;i"/>
+                                                            </div>
+                                                        </li>   
+                                                    </ul>
+                                                    <!-- Form edit Subjects-->
+                                            <% }
+                                                else if(session.getAttribute("info").equals("edit")){ 
+                                            %>
+                                            <ul>
+                                                        <li id="foli8" class="notranslate ">
+                                                            <label class="desc" id="title8" for="Field8">
+                                                                T&#234;n m&#244;n h&#7885;c:
+                                                            </label>
+                                                            <div>
+                                                               
+                                                                       <% for(int i = 0; i < admin.getSubjectses().size(); i++){
+                                                                             if(admin.getSubjectses().get(i).getID() == Integer.parseInt(session.getAttribute("id").toString()) ){
+                                                                                 %>
+                                                                                  <input id="Field1" name="subjectsname" type="text" class="field text large" value="<%= admin.getSubjectses().get(i).getSubjectsName() %>" maxlength="255" tabindex="1" onKeyUp="" />
+                                                                                 <%
+                                                                             }
+                                                                       }%>
+                                                                       
+                                                            </div>
+                                                        </li>
+                                                        
+                                                         <li class="hide">
+                                                                <input type="hidden" id="idstamp" name="state" value="admin_subjects" />
+                                                        </li>
+                                                        <li class="hide">
+                                                                <input type="hidden" id="idstamp" name="info" value="update" />
+                                                        </li>
+                                                        <li class="hide">
+                                                            <% for(int i = 0; i < admin.getSubjectses().size(); i++){
+                                                                             if(admin.getSubjectses().get(i).getID() == Integer.parseInt(session.getAttribute("id").toString()) ){
+                                                                                 %>
+                                                                                 <input type="hidden" id="idstamp" name="id" value="<%= admin.getSubjectses().get(i).getID() %>" />
+                                                                                 <%
+                                                                             }
+                                                                  }%>
+                                                                
+                                                        </li>
+                                                        <li class="buttons ">
+                                                            <div>
+                                                                <input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="C&#7853;p nh&#7853;t"/>
+                                                            </div>
+                                                        </li>   
+                                                    </ul>
+                                            <% } else { %>
+                                            <!-- List user-->
                                         <ul style=" width: 100%">
                                             <li id="foli111" class="likert notranslate col3 ">
                                                 <table cellspacing="0">
-                                                    <caption id="title111">Danh sách các câu hỏi</caption>
+                                                    <caption id="title111">Danh s&#225;ch c&#225;c m&#244;n h&#7885;c</caption>
+                                                    <a href="AdminController?state=admin_subjects&info=new" style="width: 100px">Th&#234;m m&#7899;i</a>
                                                     <thead>
                                                         <tr>
-                                                            <th><div align="center" >Tên môn học</div></th>
-                                                                <td>Sửa</td>
-                                                                <td>Xóa</td>
+                                                            <th><div align="center" >T&#234;n m&#244;n h&#7885;c</div></th>
+                                                                <td>S&#7917;a</td>
+                                                                <td>X&#243;a</td>
                                                         </tr>
                                                     </thead>
 
@@ -107,8 +182,8 @@
                                                     %>
                                                         <tr class="statement111">
                                                             <th><label for="Field111"><%= admin.getSubjectses().get(i).getSubjectsName() %></label></th>
-                                                            <td title="Sửa"><label for="Field111_2">sửa</label></td>
-                                                            <td title="Xóa"><label for="Field111_3">xóa</label></td>
+                                                            <td title="S&#7917;a"><a style=" text-align: center" href="AdminController?state=admin_subjects&info=edit&id=<%= admin.getSubjectses().get(i).getID() %>">s&#7917;a</a></td>
+                                                            <td title="X&#243;a"><a style=" text-align: center" href="AdminController?state=admin_subjects&info=del&id=<%= admin.getSubjectses().get(i).getID() %> " onclick="return show_confirm();">x&#243;a</a></td>
                                                         </tr>
                                                     <%
                                                         }
@@ -117,6 +192,9 @@
                                                 </table>
                                             </li>
                                         </ul>
+                                                     <% } %>
+                                                    <!-- **************************************************************** -->
+                                                    
                                         </div>                                        
                                     </div>
                                 </div>
